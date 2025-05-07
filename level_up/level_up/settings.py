@@ -157,14 +157,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DEFAULT_FROM_EMAIL = os.getenv("MAILGUN_EMAIL","None")
+# DEFAULT_FROM_EMAIL = os.getenv("MAILGUN_EMAIL","None")
 
-ANYMAIL = {
-    "MAILGUN_API_KEY": os.getenv("MAILGUN_EMAIL","None"),
-    "SEND_DEFAULTS": {"tags": ["levelup"]}
-}
+# ANYMAIL = {
+#     "MAILGUN_API_KEY": os.getenv("MAILGUN_EMAIL","None"),
+#     "SEND_DEFAULTS": {"tags": ["levelup"]}
+# }
 
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+# EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/articles/"
