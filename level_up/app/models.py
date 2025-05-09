@@ -35,6 +35,22 @@ class UserProfile(AbstractUser):
     
     # my_user.article_count
 
+
+class Internship (models.Model):
+    title = models.Charfield(_("title"),max_length = 100)
+    content = models.Textfield(_("content"),max_length = 100)
+    company = models.Charfield(_("company"),max_length = 100)
+    location =models.Charfield(_("location"),max_length = 100)
+    url_link =models.Charfield(_("url_link"),max_length = 100)
+    status = models.Charfield(_("status"),max_length = 100)
+
+    created_at = models.DateTimeField(_("created at"),auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"),auto_now=True)
+
+
+
+
+
 # -------------------------------
 # Article Model
 # -------------------------------
