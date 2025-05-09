@@ -29,7 +29,7 @@
             placeholder="Search articles" 
             value="{{ search }}"
             hx-get="{{ request.path }}"
-            hx-trigger="input changed delay:500ms, search"
+            hx-trigger="input changed, search"
             hx-target="#article-results"
             hx-select="#article-results"
             hx-indicator="svg.loading"
