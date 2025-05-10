@@ -98,6 +98,19 @@ class InternshipCreateView(CreateView):
     fields = ["title","content","company","location","url_link","status"]
     success_url = reverse_lazy("internship")
 
+class InternshipUpdateView(UpdateView):
+    template_name = "app/internship_update.html"
+    model = Internship
+    fields = ["title","content","company","location","url_link","status"]
+    success_url = reverse_lazy("internship")
+    context_object_name = "internship"
+
+class InternshipDeleteView(DeleteView):
+    template_name = "app/internship_delete.html"
+    model = Internship
+    success_url = reverse_lazy("internship")
+    context_object_name = "internship"
+
 
 
 

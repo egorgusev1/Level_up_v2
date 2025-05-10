@@ -6,12 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Internships</h1>
-    <ul>
-        {% for internship in internships %}
-            <li>{{internship.title}}</li>
-        {% endfor %}
-    </ul>
+    <h1>Update Internship</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
     
 </body>
 </html>
