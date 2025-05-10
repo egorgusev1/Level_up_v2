@@ -18,16 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
+from app.views import InternshipCreateView, InternshipListView
 
 from allauth.account.views import SignupView
 
-urlpatterns = [
-
-
-    
+urlpatterns = [  
+   
     path("admin/", admin.site.urls),
     path("articles/",include("app.urls")),
-    path("accounts/",include("allauth.urls")), 
+    path("accounts/",include("allauth.urls")),
+    
+    path("internships/",InternshipListView.as_view(), name="internship"),
+    path("internships/create/",InternshipCreateView.as_view(), name="create_internship"),
+
     path("accounts/signup/",RedirectView.as_view(url="/")),   
     path("", SignupView.as_view(),name="account_signup"),
     path("__debug__/",include("debug_toolbar.urls")),

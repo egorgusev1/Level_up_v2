@@ -7,7 +7,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from app.models import Article
+
+from app.models import Article, Internship
 from django.views.generic import CreateView,ListView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 
@@ -83,6 +84,19 @@ class ArticleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     def post(self, request: HttpRequest,*args:str, **kwargs:Any)-> HttpResponse:
         messages.success(request,"Article deleted successfully.", extra_tags="error")
         return super().post(request,*args,**kwargs)
+    
+
+
+class InternshipListView(ListView):
+    template_name = "app/internship.html"
+    model = Internship
+    context_object_name = "internships"
+
+class InternshipCreateView(CreateView):
+    template_name = "app/internship_create.html"
+    model = Internship
+    fields = ["title","content","company","location","url_link","status"]
+    success_url = reverse_lazy("internship")
 
 
 

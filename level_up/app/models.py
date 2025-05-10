@@ -13,6 +13,13 @@ ARTICLE_STATUS = (
     ("published","published"),
 )
 
+INTERNSHIP_LEVEL = (
+    ("freshman", "Freshman"),
+    ("sophomore", "Sophomore"),
+    ("junior", "Junior"),
+    ("senior", "Senior"),
+)
+
 # -------------------------------
 # Custom User Model
 # -------------------------------
@@ -37,12 +44,15 @@ class UserProfile(AbstractUser):
 
 
 class Internship (models.Model):
-    title = models.Charfield(_("title"),max_length = 100)
-    content = models.Textfield(_("content"),max_length = 100)
-    company = models.Charfield(_("company"),max_length = 100)
-    location =models.Charfield(_("location"),max_length = 100)
-    url_link =models.Charfield(_("url_link"),max_length = 100)
-    status = models.Charfield(_("status"),max_length = 100)
+    title = models.CharField(max_length = 100)
+    content = models.TextField(blank=True, default="")
+    company = models.CharField(max_length = 100)
+    location =models.CharField(max_length = 100)
+    url_link =models.CharField(max_length = 200)
+    status = models.CharField(                              
+                              max_length = 20,
+                              choices=INTERNSHIP_LEVEL, 
+                              default="freshman",)
 
     created_at = models.DateTimeField(_("created at"),auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"),auto_now=True)

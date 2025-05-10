@@ -6,6 +6,17 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Internships</h1>
+    <ul>
+        {% for internship in internships %}
+            <li>{{internship.title}}</li>
+            <li>{{internship.content}}</li>
+            <li>{{internship.company}}</li>
+            <li>{{internship.location}}</li>
+            <li>{{internship.url_link}}</li>
+            <li>{{internship.status}}</li>
+        {% endfor %}
+    </ul>
     
 </body>
 </html>
