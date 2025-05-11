@@ -1,18 +1,15 @@
 {% extends "app/layouts/internship_base_form.html"%}
 
-</head>
-{% block internship_content %}
-    <h1>Create internship</h1>
-    <form method = "POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button typ="submit">Save</button>
-    </form>
-    <a href="{% url 'internships:internship' %}">Back to list</a>
-{% endblock internship_content %}
+{% block head_title %}
+    - Create internship post
+{% endblock %}
 
-{% block page_js %}
+{% block buttons %}
+    <div class="flex justify-end">
+        <button type="submit" class="button primary">Save</button>
+    </div>
 
-{% endblock page_js %}
+{% endblock buttons %}
+
     
     

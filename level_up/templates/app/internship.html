@@ -1,6 +1,10 @@
 {% extends "base_internship.html" %}
 {% load humanize %}
 
+{% block head_title %}
+    - Your internships
+{% endblock %}
+
 {% block internship_content %}
 <main class="max-w-7xl mx-auto mt-10 p-2 md:p-4 lg:p-10">
     <h1 class="title mb-4">Look for internships</h1>
@@ -25,8 +29,6 @@
                 </a>
                 <p class="text-xs">{{ internship.content }}</p>
             </li>
-            {% comment %} <li> {{ internship.content }} </li> {% endcomment %} 
-
         {% endfor %}
     </ul>
     {% else %}

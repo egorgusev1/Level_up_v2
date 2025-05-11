@@ -1,16 +1,20 @@
 {% extends "app/layouts/internship_base_form.html"%}
 
-</head>
-{% block internship_content %}
-    <h1>Edit internship</h1>
-    <p>Last edited on {{ internship.updated_at | date:"jS F Y" }}</p>
-    <form method = "POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+{% block head_title %}
+    - Edit internship post
+{% endblock %}
 
-    <a href="{% url 'internships:internship' %}">Back to list</a>
-    <a href="{% url 'internships:delete_internship' internship.id %}">Delete internship</a>
-{% endblock internship_content %}
+</head>
+{% block internship_stats %}   
+    <p>Last edited on<span class="font-bold">{{ internship.updated_at | date:"jS F Y" }}</span></p>
+{% endblock internship_stats %}
+
+{% block buttons %}
+    <div class="flex justify-end gap-4">
+        <a href="{% url 'internships:delete_internship' internship.id %}" class="button danger">Delete internship</a>
+        <button type="submit" class="button primary">Save</button>
+     </div>
+
+{% endblock buttons %}
+
     
