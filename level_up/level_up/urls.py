@@ -24,9 +24,10 @@ from allauth.account.views import SignupView
 urlpatterns = [  
    
     path("admin/", admin.site.urls),
-
-    path("articles/", include(("app.urls.articles", "app"), namespace="articles")),
+    
     path("internships/", include(("app.urls.internships", "app"), namespace="internships")),
+    path("articles/", include(("app.urls.articles", "app"), namespace="articles")),
+   
 
     path("accounts/",include("allauth.urls")),
     path("accounts/signup/",RedirectView.as_view(url="/")),

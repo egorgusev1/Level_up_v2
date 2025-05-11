@@ -167,10 +167,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/articles/"
+LOGIN_REDIRECT_URL = "/internships/"
 LOGOUT_REDIRECT_URL = ""
 ACCOUNTS_LOGOUT_REDIRECT_URL = "/accounts/login/"
-ACCOUNT_SIGNUP_REDIRECT_URL = "/articles/"
+ACCOUNT_SIGNUP_REDIRECT_URL = "/internships/"
 
 # LOGIN_REDIRECT_URL = "home"
 # LOGOUT_REDIRECT_URL = "account_login"
