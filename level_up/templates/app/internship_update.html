@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Internship</title>
+{% extends "app/layouts/internship_base_form.html"%}
+
 </head>
-<body>
+{% block internship_content %}
+    <h1>Edit internship</h1>
+    <p>Last edited on {{ internship.updated_at | date:"jS F Y" }}</p>
+    <form method = "POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="{% url 'internships:internship' %}">Back to list</a>
+    <a href="{% url 'internships:delete_internship' internship.id %}">Delete internship</a>
+{% endblock internship_content %}
     
-</body>
-</html>

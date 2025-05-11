@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Internship</title>
+{% extends "base_internship.html"%}
+
 </head>
-<body>
+{% block internship_content %}
+    <h1>Delete internship</h1>
+    <p>Are you sure you want to delete "{{ internship.title }}"?</p>
+    <form method = "POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+
+    <a href="{% url 'internships:internship' %}">No, take me back</a>
+{% endblock internship_content %}
     
-</body>
-</html>

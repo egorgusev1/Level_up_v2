@@ -24,6 +24,7 @@ def index(request):
         # maybe filter for articles
     elif namespace == "internships":
         context["title"] = "Internships"
+        context["internships"] = Internship.objects.all()
         # maybe filter for internships
 
     return render(request, "app/index.html", context)
@@ -58,7 +59,7 @@ class ArticleCreateView(LoginRequiredMixin,CreateView):
     template_name = "app/article_create.html"
     model = Article
     fields = ["title","status","content","twitter_post"]
-    success_url = reverse_lazy("articles:index")
+    success_url = reverse_lazy("articles:home")
 
      # This method sets the creator of the article to the currently logged-in user
     def form_valid(self, form):
@@ -75,7 +76,7 @@ class ArticleUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     template_name = "app/article_update.html"
     model = Article
     fields = ["title","status","content","twitter_post"]
-    success_url = reverse_lazy("articles:index")
+    success_url = reverse_lazy("articles:home")
     context_object_name = "articles"
 
     #verfies that logged in user, is the creator of the object
@@ -90,7 +91,7 @@ class ArticleUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 class ArticleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     template_name = "app/article_delete.html"
     model = Article
-    success_url = reverse_lazy("articles:index")
+    success_url = reverse_lazy("articles:home")
     context_object_name = "articles"
 
      # Only allow deletion if the user is the creator of the article
@@ -103,29 +104,41 @@ class ArticleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     
 
 
-class InternshipListView(ListView):
+class InternshipListView(LoginRequiredMixin,ListView):
     template_name = "app/internship.html"
     model = Internship
     context_object_name = "internships"
 
-class InternshipCreateView(CreateView):
+class InternshipCreateView(LoginRequiredMixin,CreateView):
     template_name = "app/internship_create.html"
     model = Internship
     fields = ["title","content","company","location","url_link","status"]
-    success_url = reverse_lazy("internships:index")
+    success_url = reverse_lazy("internships:internship")
 
-class InternshipUpdateView(UpdateView):
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+
+class InternshipUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     template_name = "app/internship_update.html"
     model = Internship
     fields = ["title","content","company","location","url_link","status"]
-    success_url = reverse_lazy("internships:index")
+    success_url = reverse_lazy("internships:internship")
     context_object_name = "internship"
 
-class InternshipDeleteView(DeleteView):
+    #verfies that logged in user, is the creator of the object
+    def test_func(self) -> bool | None:
+        return self.request.user == self.get_object().creator
+
+class InternshipDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     template_name = "app/internship_delete.html"
     model = Internship
-    success_url = reverse_lazy("internships:index")
+    success_url = reverse_lazy("internships:internship")
     context_object_name = "internship"
+
+    #verfies that logged in user, is the creator of the object
+    def test_func(self) -> bool | None:
+        return self.request.user == self.get_object().creator
 
 
 

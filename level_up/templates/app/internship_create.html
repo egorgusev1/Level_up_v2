@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Internship</title>
+{% extends "app/layouts/internship_base_form.html"%}
+
 </head>
-<body>
+{% block internship_content %}
+    <h1>Create internship</h1>
+    <form method = "POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button typ="submit">Save</button>
+    </form>
+    <a href="{% url 'internships:internship' %}">Back to list</a>
+{% endblock internship_content %}
+
+{% block page_js %}
+
+{% endblock page_js %}
     
-</body>
-</html>
+    

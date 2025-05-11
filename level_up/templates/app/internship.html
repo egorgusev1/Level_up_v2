@@ -1,11 +1,26 @@
 {% extends "base_internship.html" %}
+{% load humanize %}
 
 {% block internship_content %}
     <h1>Internships</h1>
+
+    <p>
+        You have created {{ user.internship_count }} internships.
+    </p>
+
+    <a href="{% url 'internships:create_internship' %}">Create internship</a>
+
+
+    {% if internships %}
     <ul>
         {% for internship in internships %}
-            <li> {{ internship.title }} </li>
-            <li> {{ internship.content }} </li>
+            <li><a href="{% url 'internships:update_internship' internship.id %}">{{ internship.title }}</a></li>
+            {% comment %} <li> {{ internship.content }} </li> {% endcomment %} 
+
         {% endfor %}
     </ul>
+    {% else %}
+        <p>There are no internships yet.</p>
+    {% endif %}
+
 {% endblock internship_content %}
