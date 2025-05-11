@@ -14,3 +14,5 @@ urlpatterns = [
     path("<int:pk>/update/", ArticleUpdateView.as_view(), name="update_article"),
     path("<int:pk>/delete/", ArticleDeleteView.as_view(), name="delete_article"),
 ]
+
+# comment for commit 
