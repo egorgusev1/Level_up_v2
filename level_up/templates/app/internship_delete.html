@@ -1,14 +1,22 @@
 {% extends "base_internship.html"%}
 
-</head>
 {% block internship_content %}
-    <h1>Delete internship</h1>
-    <p>Are you sure you want to delete "{{ internship.title }}"?</p>
-    <form method = "POST">
+<main class="max-w-2xl mx-auto flex flex-col items-center mt-10">
+    <h1 class="subtitle mb-2">Delete internship</h1>
+    <p class="text-lg mb-6">Are you sure you want to delete "{{ internship.title }}"?</p>
+
+    <form method = "POST" class="flex items-center gap-4">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit" class="button danger">Yes, delete it</button>
+        <a 
+            href="{% url 'internships:internship' %}" 
+            class="button secondary">
+            {% include "./svgs/arrow-left.svg" with class="inline-block w-6 h-6 mt-[-2px] mr-2" %}
+            No, take me back
+        </a>
     </form>
 
-    <a href="{% url 'internships:internship' %}">No, take me back</a>
+    
+</main>
 {% endblock internship_content %}
     

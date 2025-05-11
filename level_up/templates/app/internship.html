@@ -2,19 +2,29 @@
 {% load humanize %}
 
 {% block internship_content %}
-    <h1>Internships</h1>
+<main class="max-w-7xl mx-auto mt-10 p-2 md:p-4 lg:p-10">
+    <h1 class="title mb-4">Look for internships</h1>
 
-    <p>
+    <p class="text-xl mb-4">
         You have created {{ user.internship_count }} internships.
     </p>
 
-    <a href="{% url 'internships:create_internship' %}">Create internship</a>
+    <a class="button primary inline-block mb-6 w-full sm:w-auto text-center" href="{% url 'internships:create_internship' %}">Start a new internship</a>
 
 
+    <h2 class="subtitle mb-6">Latest internships</h2>
     {% if internships %}
     <ul>
         {% for internship in internships %}
-            <li><a href="{% url 'internships:update_internship' internship.id %}">{{ internship.title }}</a></li>
+            <li>
+                <a 
+                    class="text-2xl flex items-center" 
+                    href="{% url 'internships:update_internship' internship.id %}">
+                    {{ internship.title }}
+                    <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase bg-gray-200">{{internship.status}}</span>
+                </a>
+                <p class="text-xs">{{ internship.content }}</p>
+            </li>
             {% comment %} <li> {{ internship.content }} </li> {% endcomment %} 
 
         {% endfor %}
@@ -23,4 +33,5 @@
         <p>There are no internships yet.</p>
     {% endif %}
 
+</main>
 {% endblock internship_content %}

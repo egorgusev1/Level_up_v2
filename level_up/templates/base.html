@@ -28,7 +28,7 @@
                     <a 
                         class="button primary" 
                         href="{% spaceless %}{% if request.path != create_new_url %} {{create_new_url}} {% else %} # {% endif %}{% endspaceless%}">
-                        Create New
+                        Create New Article
                     </a>
                     <a 
                         class="hover:inset-shadow-underline hover:shadow-gray-300 {% if request.path == your_articles_url %} font-semibold {% endif %}" 

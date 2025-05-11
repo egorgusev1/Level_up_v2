@@ -8,6 +8,7 @@
     <title>LevelUp {% block head_title %}{% endblock head_title %} </title>
     <link rel="stylesheet" href="{% static 'output.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> {% endcomment %}
     <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
 </head>
 <body>
@@ -21,7 +22,7 @@
                     <a 
                         class="button primary" 
                         href="{% spaceless %}{% if request.path != create_new_internship %} {{create_new_internship}} {% else %} # {% endif %}{% endspaceless %}">
-                        Create new
+                        Create New Internship
                     </a>
                     <a 
                         class="hover:inset-shadow-underline hover:shadow-gray-300 {% if request.path == your_article_home %} font-semibold {% endif %}" 
@@ -57,7 +58,6 @@
     {% block internship_content %}
 
     {%endblock internship_content %}
-    <footer>Common footer for intership pages</footer>
 
     {% block page_js %}
     
