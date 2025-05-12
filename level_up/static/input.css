@@ -21,6 +21,7 @@
     @apply font-medium px-4 py-2 rounded-md;
 }
 
+
 .primary {
     @apply border border-emerald-700 bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 focus:ring-emerald-500 focus:ring-2 focus:ring-offset-2 focus:outline-hidden;
 }

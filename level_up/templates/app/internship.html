@@ -51,7 +51,17 @@
                         {{ internship.title }}
                         <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase internship-status-{{internship.status}}">{{internship.status}}</span>
                     </a>
-                    <p class="text-xs">{{ internship.content }}</p>
+                    <p class="text-xs mb-2">{{ internship.content }}</p>
+                    <p class="text-xs font-bold mb-2">{{ internship.company }}</p>
+                    <p class="text-xs font-semibold mb-2">{{ internship.location }}</p>
+                    <p class="text-xs">
+                        <a 
+                            href="{{ internship.url_link }}" 
+                            target="_blank" 
+                            class="inline-block px-4 py-2 mb-2 mt-2 text-white bg-emerald-800 hover:bg-emerald-300 rounded-md transition-colors duration-200">
+                            Click here to apply!
+                        </a>
+                    </p>
                 </li>
             {% endfor %}
         </ul>

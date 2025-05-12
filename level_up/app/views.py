@@ -13,8 +13,6 @@ from django.views.generic import CreateView,ListView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 
 
-
-
 def index(request):
     namespace = request.resolver_match.namespace
     context = {}
@@ -47,7 +45,7 @@ class ArticleListView(LoginRequiredMixin,ListView):
         search=self.request.GET.get("search")
         queryset = super().get_queryset().filter(creator=self.request.user)
         if search:
-            queryset = queryset.filter(title__search=search)
+            queryset = queryset.filter(title__icontains=search)
         return queryset.order_by("-created_at")
 
 # -------------------------------
@@ -115,7 +113,7 @@ class InternshipListView(LoginRequiredMixin,ListView):
         search=self.request.GET.get("search")
         queryset = super().get_queryset().filter(creator=self.request.user)
         if search:
-            queryset = queryset.filter(title__search=search)
+            queryset = queryset.filter(title__icontains=search)
         return queryset.order_by("-created_at")
 
 class InternshipCreateView(LoginRequiredMixin,CreateView):
