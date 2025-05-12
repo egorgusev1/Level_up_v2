@@ -17,7 +17,7 @@
 
 {% block buttons %}
 <div class="flex justify-end gap-4">
-    <a hx-get="{% url 'articles:delete_article' articles.id %}" class="button danger" hx-target="#dialog" hx-select="main">Delete Article</a>
+    <a hx-get="{% url 'articles:delete_article' articles.id %}" class="button danger" hx-target="#dialog">Delete Article</a>
     <button type="submit" class="button primary">Save</button>
 </div>
 {% endblock buttons%}
