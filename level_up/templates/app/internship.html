@@ -1,11 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+
+{% extends "base_internship.html" %}
+{% load humanize %}
+
+{% block head_title %}
+    - Your internships
+{% endblock %}
+
+{% block internship_content %}
+<main class="max-w-7xl mx-auto mt-10 p-2 md:p-4 lg:p-10">
+    <h1 class="title mb-4">Look for internships</h1>
+
+    <p class="text-xl mb-4">
+        You have created {{ user.internship_count }} internships.
+    </p>
+
+    <a class="button primary inline-block mb-6 w-full sm:w-auto text-center" href="{% url 'internships:create_internship' %}">Start a new internship</a>
+
+
+    <h2 class="subtitle mb-6">Latest internships</h2>
+
+    <form method="GET" class="flex flex-col sm:flex-row gap-3">
+        <input 
+            class="text-black shadow-sm focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm border-gray-300 rounded-md" 
+            type="search" 
+            name="search" 
+            placeholder="Search internships" 
+            value="{{ search }}"
+            hx-get="{{ request.path }}"
+            hx-trigger="input changed delay:500ms, search"
+            hx-target="#internship-results"
+            hx-select="#internship-results"
+            hx-indicator="svg.loading"
+            hx-disabled-elt="next button"
+            hx-push-url="true">
+        <button class="flex gap-1 button secondary items-center justify-center [&>.loading.htmx-request.hidden]:!inline-block [&>.loading.htmx-request]:hidden disabled:cursor-not-allowed disabled:opacity-50" type="submit">
+            {% include "app/svgs/magnifier.svg" with class="loading w-6 h-6 mr-2"%}
+            {% include "app/svgs/loading.svg" with class="loading w-6 h-6 mr-2 hidden motion-safe:animate-spin"%}
+            Search
+        </button>
+        <a href="{{ request.path }}" class="button secondary text-center">Clear search</a>
+    </form>
+
+    <div id="internship-results">
+    {% if internships %}
+        <ul>
+            {% for internship in internships %}
+            <div class="border rounded-md mt-2 mb-2 mx-auto">
+                <div class="m-4">
+                    <a 
+                        class="text-2xl flex items-center" 
+                        href="{% url 'internships:update_internship' internship.id %}">
+                        {{ internship.title }}
+                        <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase internship-status-{{internship.status}}">{{internship.status}}</span>
+                    </a>
+                    <p class="text-xs mb-2">{{ internship.content }}</p>
+                    <p class="text-xs font-bold mb-2">{{ internship.company }}</p>
+                    <p class="text-xs font-semibold mb-2">{{ internship.location }}</p>
+                    <p class="text-xs">
+                        <a 
+                            href="{{ internship.url_link }}" 
+                            target="_blank" 
+                            class="inline-block px-4 py-2 mb-2 mt-2 text-white bg-emerald-700 hover:bg-emerald-900 rounded-md transition-colors duration-200">
+                            Click here to apply!
+                        </a>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </ul>
+        {% if is_paginated %}
+                    <div class="flex flex-row items-center justify-center text-xl mt-6">
+                        {% if page_obj.has_previous %}
+                            <a class="mx-2" href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}">
+                                {% include "app/svgs/chevron.svg" with class="h-7 w-7 rotate-180 border border-black rounded-md p-1"%}
+                            </a>
+                        {% endif %}
+                        <span>Page {{ page_obj.number }} of {{ paginator.num_pages }} </span>
+                        {% if page_obj.has_next %}
+                            <a class="mx-2" href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}">
+                                {% include "app/svgs/chevron.svg" with class="h-7 w-7 border border-black rounded-md p-1"%}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% else %}
+            <p>There are no internships yet.</p>
+        {% endif %}
+    </div>
+
+
+</main>
+{% endblock internship_content %}

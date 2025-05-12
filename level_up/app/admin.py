@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from app.models import Article, UserProfile
+from app.models import Article, UserProfile,Internship
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -10,6 +10,14 @@ class ArticleAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
     ordering = ("created_at",)
     readonly_fields = ("word_count","created_at","updated_at")
+
+class InternshipAdmin(admin.ModelAdmin):
+    list_display = ("title","content","company","location","url_link","status")
+    list_filter = ("title",)
+    search_fields = ("title","content","company","location","status")
+    date_hierarchy = "created_at"
+    ordering = ("created_at",)
+    readonly_fields = ("created_at","updated_at")
 
 
 
@@ -37,4 +45,5 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(Article,ArticleAdmin)
 admin.site.register(UserProfile,CustomUserAdmin)
+admin.site.register(Internship,InternshipAdmin)
 # Register your models here.

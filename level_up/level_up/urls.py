@@ -21,15 +21,19 @@ from django.urls import reverse_lazy
 
 from allauth.account.views import SignupView
 
-urlpatterns = [
-
-
-    
+urlpatterns = [  
+   
     path("admin/", admin.site.urls),
-    path("articles/",include("app.urls")),
-    path("accounts/",include("allauth.urls")), 
-    path("accounts/signup/",RedirectView.as_view(url="/")),   
+    
+    path("internships/", include(("app.urls.internships", "app"), namespace="internships")),
+    path("articles/", include(("app.urls.articles", "app"), namespace="articles")),
+   
+
+    path("accounts/",include("allauth.urls")),
+    path("accounts/signup/",RedirectView.as_view(url="/")),
+
     path("", SignupView.as_view(),name="account_signup"),
+
     path("__debug__/",include("debug_toolbar.urls")),
     path("__reload__/",include("django_browser_reload.urls")),
 ]

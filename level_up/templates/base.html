@@ -18,8 +18,9 @@
     
 </head>
 <body>
-    {% url 'create_article' as create_new_url %}
-    {% url 'home' as your_articles_url %}
+    {% url 'articles:create_article' as create_new_url %}
+    {% url 'articles:home' as your_articles_url %}
+    {% url 'internships:internship' as your_internships_url %}
     {% url 'account_email' as change_email_url %}
     <nav class = "px-10 py-4 border-b border-gray-300 shadow-md">
         <div class="flex justify-end items-center gap-6 max-w-7xl mx-auto"> 
@@ -27,12 +28,17 @@
                     <a 
                         class="button primary" 
                         href="{% spaceless %}{% if request.path != create_new_url %} {{create_new_url}} {% else %} # {% endif %}{% endspaceless%}">
-                        Create New
+                        Create New Article
                     </a>
                     <a 
                         class="hover:inset-shadow-underline hover:shadow-gray-300 {% if request.path == your_articles_url %} font-semibold {% endif %}" 
                         href="{{ your_articles_url }}">
                         Articles
+                    </a>
+                    <a 
+                        class="hover:inset-shadow-underline hover:shadow-gray-300 {% if request.path == your_internships_url %} font-semibold {% endif %}" 
+                        href="{{ your_internships_url }}">
+                        Internships
                     </a>
                     <a 
                         class="hover:inset-shadow-underline hover:shadow-gray-300 {% if request.path == change_email_url %} font-semibold {% endif %}" 

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+
 from pathlib import Path
 import dj_database_url
 
@@ -54,6 +55,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     
     "allauth",
+    "anymail",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
@@ -63,7 +65,7 @@ THIRD_PARTY_APPS = [
 ]
 
 PROJECT_APPS = [
-    "app.apps.AppConfig"
+    "app.apps.AppConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -157,31 +159,30 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# DEFAULT_FROM_EMAIL = os.getenv("MAILGUN_EMAIL","None")
+DEFAULT_FROM_EMAIL = os.getenv("MAILGUN_EMAIL", "None")
 
-# ANYMAIL = {
-#     "MAILGUN_API_KEY": os.getenv("MAILGUN_EMAIL","None"),
-#     "SEND_DEFAULTS": {"tags": ["levelup"]}
-# }
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.getenv("MAILGUN_API_KEY", "None"),
+    "SEND_DEFAULTS": {"tags": ["levelup"]}
+}
 
-# EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/articles/"
+LOGIN_REDIRECT_URL = "/internships/"
 LOGOUT_REDIRECT_URL = ""
 ACCOUNTS_LOGOUT_REDIRECT_URL = "/accounts/login/"
-ACCOUNT_SIGNUP_REDIRECT_URL = "/articles/"
+ACCOUNT_SIGNUP_REDIRECT_URL = "/internships/"
 
-# LOGIN_REDIRECT_URL = "home"
-# LOGOUT_REDIRECT_URL = "account_login"
 
 #Allauth settings
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = "none"
-# ACCOUNT_SIGNUP_PASWORD_ENTER_TWICE = False
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
 
 
 # Internationalization
