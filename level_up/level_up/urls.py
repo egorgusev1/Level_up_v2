@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
+from django.conf import settings 
 
 from allauth.account.views import SignupView
 
@@ -27,13 +28,13 @@ urlpatterns = [
     
     path("internships/", include(("app.urls.internships", "app"), namespace="internships")),
     path("articles/", include(("app.urls.articles", "app"), namespace="articles")),
-   
-
     path("accounts/",include("allauth.urls")),
     path("accounts/signup/",RedirectView.as_view(url="/")),
-
     path("", SignupView.as_view(),name="account_signup"),
-
-    path("__debug__/",include("debug_toolbar.urls")),
-    path("__reload__/",include("django_browser_reload.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__debug__/",include("debug_toolbar.urls")),
+        path("__reload__/",include("django_browser_reload.urls")),
+    ]
