@@ -108,6 +108,15 @@ class InternshipListView(LoginRequiredMixin,ListView):
     template_name = "app/internship.html"
     model = Internship
     context_object_name = "internships"
+    paginate_by = 5
+
+    def get_queryset(self) -> QuerySet[Any]:
+        time.sleep(2)
+        search=self.request.GET.get("search")
+        queryset = super().get_queryset().filter(creator=self.request.user)
+        if search:
+            queryset = queryset.filter(title__search=search)
+        return queryset.order_by("-created_at")
 
 class InternshipCreateView(LoginRequiredMixin,CreateView):
     template_name = "app/internship_create.html"
@@ -139,6 +148,13 @@ class InternshipDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     #verfies that logged in user, is the creator of the object
     def test_func(self) -> bool | None:
         return self.request.user == self.get_object().creator
+    
+    def post(self, request: HttpRequest,*args:str, **kwargs:Any)-> HttpResponse:
+        messages.success(request,"Internship deleted successfully.", extra_tags="error")
+        return super().post(request,*args,**kwargs)
+    
+
+    
 
 
 
