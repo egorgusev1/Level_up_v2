@@ -1,6 +1,5 @@
 #!/bin/bash
 
-npx tailwindcss -i ./static/input.css -o ./static/output.css --minify
 
 poetry run python manage.py collectstatic --no-input
 
