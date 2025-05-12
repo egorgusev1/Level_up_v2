@@ -41,9 +41,8 @@ class ArticleListView(LoginRequiredMixin,ListView):
     # This method customizes the queryset to show only articles
     # created by the logged-in user, ordered by creation time (newest first)
     def get_queryset(self) -> QuerySet[Any]:
-        time.sleep(2)
         search=self.request.GET.get("search")
-        queryset = super().get_queryset().filter(creator=self.request.user)
+        queryset = super().get_queryset()
         if search:
             queryset = queryset.filter(title__icontains=search)
         return queryset.order_by("-created_at")
@@ -102,16 +101,15 @@ class ArticleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     
 
 
-class InternshipListView(LoginRequiredMixin,ListView):
+class InternshipListView(ListView):
     template_name = "app/internship.html"
     model = Internship
     context_object_name = "internships"
     paginate_by = 5
 
     def get_queryset(self) -> QuerySet[Any]:
-        time.sleep(2)
         search=self.request.GET.get("search")
-        queryset = super().get_queryset().filter(creator=self.request.user)
+        queryset = super().get_queryset()
         if search:
             queryset = queryset.filter(title__icontains=search)
         return queryset.order_by("-created_at")
