@@ -26,7 +26,7 @@
             placeholder="Search internships" 
             value="{{ search }}"
             hx-get="{{ request.path }}"
-            hx-trigger="input changed, search"
+            hx-trigger="input changed delay:500ms, search"
             hx-target="#internship-results"
             hx-select="#internship-results"
             hx-indicator="svg.loading"
@@ -40,39 +40,41 @@
         <a href="{{ request.path }}" class="button secondary text-center">Clear search</a>
     </form>
 
-
+    <div id="internship-results">
     {% if internships %}
-    <ul>
-        {% for internship in internships %}
-            <li>
-                <a 
-                    class="text-2xl flex items-center" 
-                    href="{% url 'internships:update_internship' internship.id %}">
-                    {{ internship.title }}
-                    <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase internship-status-{{internship.status}}">{{internship.status}}</span>
-                </a>
-                <p class="text-xs">{{ internship.content }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-    {% if is_paginated %}
-                <div class="flex flex-row items-center justify-center text-xl mt-6">
-                    {% if page_obj.has_previous %}
-                        <a class="mx-2" href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}">
-                            {% include "app/svgs/chevron.svg" with class="h-7 w-7 rotate-180 border border-black rounded-md p-1"%}
-                        </a>
-                    {% endif %}
-                    <span>Page {{ page_obj.number }} of {{ paginator.num_pages }} </span>
-                    {% if page_obj.has_next %}
-                        <a class="mx-2" href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}">
-                            {% include "app/svgs/chevron.svg" with class="h-7 w-7 border border-black rounded-md p-1"%}
-                        </a>
-                    {% endif %}
-                </div>
-            {% endif %}
-        {% else %}
-        <p>There are no internships yet.</p>
-    {% endif %}
+        <ul>
+            {% for internship in internships %}
+                <li>
+                    <a 
+                        class="text-2xl flex items-center" 
+                        href="{% url 'internships:update_internship' internship.id %}">
+                        {{ internship.title }}
+                        <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase internship-status-{{internship.status}}">{{internship.status}}</span>
+                    </a>
+                    <p class="text-xs">{{ internship.content }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if is_paginated %}
+                    <div class="flex flex-row items-center justify-center text-xl mt-6">
+                        {% if page_obj.has_previous %}
+                            <a class="mx-2" href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}">
+                                {% include "app/svgs/chevron.svg" with class="h-7 w-7 rotate-180 border border-black rounded-md p-1"%}
+                            </a>
+                        {% endif %}
+                        <span>Page {{ page_obj.number }} of {{ paginator.num_pages }} </span>
+                        {% if page_obj.has_next %}
+                            <a class="mx-2" href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}">
+                                {% include "app/svgs/chevron.svg" with class="h-7 w-7 border border-black rounded-md p-1"%}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% else %}
+            <p>There are no internships yet.</p>
+        {% endif %}
+    </div>
+
 
 </main>
 {% endblock internship_content %}
