@@ -25,7 +25,7 @@
                     class="text-2xl flex items-center" 
                     href="{% url 'internships:update_internship' internship.id %}">
                     {{ internship.title }}
-                    <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase bg-gray-200">{{internship.status}}</span>
+                    <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase internship-status-{{internship.status}}">{{internship.status}}</span>
                 </a>
                 <p class="text-xs">{{ internship.content }}</p>
             </li>

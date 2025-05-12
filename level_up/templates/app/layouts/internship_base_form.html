@@ -4,14 +4,16 @@
 
 {% block internship_content %}
 <main class="max-w-7xl mx-auto mt-10">
-    <form method = "POST">
+    <form method = "POST" x-data="{
+        internshipStatus: ''
+    }">
         {% csrf_token %}
         <div class="mb-4">
             {% render_field form.title class="text-4xl rounded-md border-2 border-gray-200 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Write your title here" %}
         </div>
 
         <div class="flex gap-10 mb-10 items-center">
-            {% render_field form.status class="text-xs border-none rounded-sm uppercase"%}
+            {% render_field form.status class="text-xs border-none rounded-sm uppercase internship-status-freshman" x-bind::class="`internship-status-${internshipStatus}`" x-model.fill="internshipStatus" %}
             {% block internship_stats %}
 
             {% endblock internship_stats %}
