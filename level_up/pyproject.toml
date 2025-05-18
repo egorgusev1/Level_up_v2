@@ -25,6 +25,10 @@ packages = [{include = "level_up", from = "src"}]
 [tool.poetry.group.dev.dependencies]
 django-debug-toolbar = "^5.1.0"
 django-browser-reload = "^1.18.0"
+pytest = "^8.3.5"
+pytest-django = "^4.11.1"
+playwright = "^1.52.0"
+pytest-playwright = "^0.7.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
