@@ -76,5 +76,6 @@ Developed as part of the CSC430 course project by:
 * Egor
 * Owen
 * Matteo
+* Evander
 
 
