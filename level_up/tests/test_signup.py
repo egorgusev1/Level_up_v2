@@ -1,4 +1,4 @@
-import re
+import re # Regular expression module for extracting URLs from text
 
 from django.core import mail
 from playwright.sync_api import Page
@@ -8,6 +8,12 @@ from tests.pages.auth import SignupPage, ConfirmationPage
 from app.models import UserProfile
 
 def test_signup(page: Page, user_data: dict):
+    # 
+    # Test to verify the signup process, including email confirmation and user verification.
+    # Args:
+    #     page: Playwright Page object for browser interaction.
+    #     user_data: Fixture providing test user email and password.
+    # 
     page.goto("/")
     signup_page = SignupPage(page)
     signup_page.complete_signup_form(user_data["email"], user_data["password"])

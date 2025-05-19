@@ -45,15 +45,18 @@ class UserProfile(AbstractUser):
         return self.articles.aggregate(models.Sum("word_count")) ["word_count__sum"] or 0
     
     
-    # my_user.article_count
 
-
+# Define the Internship model by inheriting from Django's Model class
 class Internship (models.Model):
     title = models.CharField(_("title"),max_length = 100)
     content = models.TextField(_("content"),blank=True, default="")
     company = models.CharField(_("company"),max_length = 100)
     location =models.CharField(_("location"),max_length = 100)
     url_link =models.URLField(_("url_link"),max_length = 200)
+
+    # CharField for the internship status (e.g., freshman, sophomore, etc.)
+    # Uses choices from INTERNSHIP_LEVEL (assumed to be a tuple of valid choices)
+    # Defaults to "freshman"
     status = models.CharField(
                               _("status"),                              
                               max_length = 20,
@@ -62,6 +65,11 @@ class Internship (models.Model):
 
     created_at = models.DateTimeField(_("created at"),auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"),auto_now=True)
+
+    # ForeignKey linking to the user who created the internship
+    # Uses the AUTH_USER_MODEL from settings for flexibility
+    # on_delete=models.CASCADE ensures the internship is deleted if the user is deleted
+    # related_name="internships" allows reverse querying of internships by user
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="internships")
 
     def __str__(self):
