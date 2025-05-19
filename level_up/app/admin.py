@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 from app.models import Article, UserProfile,Internship
 
 
+# Creating specific admin panels for internship and articles.
+
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("title","word_count","status","created_at","updated_at")
     list_filter = ("status",)
@@ -46,4 +48,3 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(Article,ArticleAdmin)
 admin.site.register(UserProfile,CustomUserAdmin)
 admin.site.register(Internship,InternshipAdmin)
-# Register your models here.

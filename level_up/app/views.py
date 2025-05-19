@@ -100,7 +100,7 @@ class ArticleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
         return super().post(request,*args,**kwargs)
     
 
-
+# List view to display all internships
 class InternshipListView(ListView):
     template_name = "app/internship.html"
     model = Internship
@@ -114,6 +114,7 @@ class InternshipListView(ListView):
             queryset = queryset.filter(title__icontains=search)
         return queryset.order_by("-created_at")
 
+# View to create a new internship (requires login)
 class InternshipCreateView(LoginRequiredMixin,CreateView):
     template_name = "app/internship_create.html"
     model = Internship
@@ -124,6 +125,7 @@ class InternshipCreateView(LoginRequiredMixin,CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
+# View to update an existing internship (requires login and creator permission)
 class InternshipUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     template_name = "app/internship_update.html"
     model = Internship
@@ -135,6 +137,7 @@ class InternshipUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     def test_func(self) -> bool | None:
         return self.request.user == self.get_object().creator
 
+# View to delete an internship (requires login and creator permission)
 class InternshipDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     template_name = "app/internship_delete.html"
     model = Internship
@@ -145,8 +148,13 @@ class InternshipDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     def test_func(self) -> bool | None:
         return self.request.user == self.get_object().creator
     
+    # Handle POST requests for deleting the internship
     def post(self, request: HttpRequest,*args:str, **kwargs:Any)-> HttpResponse:
+        
+        # Add a success message to notify the user of successful deletion
         messages.success(request,"Internship deleted successfully.", extra_tags="error")
+        
+        # Call the parent class's post method to perform the deletion
         return super().post(request,*args,**kwargs)
     
 
