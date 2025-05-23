@@ -50,7 +50,7 @@ def verified_user(user_data):
         email=user_data["email"],password=user_data["password"]
     )
 
-    email,created = EmailAddress.objects.ger_or_create(
+    email,created = EmailAddress.objects.get_or_create(
         user=user, email=user_email(user)
     )
 
@@ -84,6 +84,8 @@ def auth_page(page: Page, verified_user, user_data):
         ]
     )
     return page
+
+
 
 
 
