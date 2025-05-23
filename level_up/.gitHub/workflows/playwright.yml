@@ -12,5 +12,5 @@ jobs:
     - uses: actions/checkout@v4
     - name: Launch compose system
       run: docker compose up -d
-    - name: Run Playwright Tests
+    - name: Run Playwright tests
       run: docker compose exec web poetry run pytest
