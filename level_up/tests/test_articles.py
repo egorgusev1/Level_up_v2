@@ -90,7 +90,7 @@ def test_create_edit_article(auth_page: Page):
     article_page.save_button.click()
 
     articles_page = ArticlesPage(auth_page)
-    assert articles_page.page.get_by_text(article_title, exact=True).click()
+    articles_page.page.get_by_text(article_title, exact=True).click()
 
     article_page = ArticlePage(auth_page)
 
